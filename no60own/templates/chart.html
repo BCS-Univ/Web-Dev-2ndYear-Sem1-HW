@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Chart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="mb-4">
+            <input id="numberInput" type="text" class="border-2 border-gray-300 p-2 rounded" placeholder="1,2,3,5,3">
+            <button id="submitButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Click
+            </button>
+        </div>
+        <canvas id="myChart"></canvas>
+    </div>
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function() {
+            var numbers = document.getElementById('numberInput');
+            fetch('/num_start', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({numbers: numbers}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 在這裡使用 Chart.js 生成圖表
+                console.log(data);
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: numbers.map((_, index) => index + 1),
+                        datasets: [{
+                            label: 'Numbers',
+                            data: data.chartData,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    },
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
