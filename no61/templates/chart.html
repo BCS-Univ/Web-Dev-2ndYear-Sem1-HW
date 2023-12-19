@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Sales Data Pie Chart</title>
-    <!-- Include Chart.js from the CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -23,10 +22,8 @@
 </div>
 
 <script>
-    // Get the sales data passed from the Flask route
     var salesData = {{ sales_data | tojson | safe }};
 
-    // Convert the sales data into a format suitable for Chart.js
     var data = {
         labels: Object.keys(salesData),
         datasets: [{
@@ -42,7 +39,6 @@
         }]
     };
 
-    // Configuration for the pie chart
     var config = {
         type: 'pie',
         data: data,
@@ -52,7 +48,6 @@
         }
     };
 
-    // Create the pie chart
     var ctx = document.getElementById('salesChart').getContext('2d');
     new Chart(ctx, config);
 </script>
