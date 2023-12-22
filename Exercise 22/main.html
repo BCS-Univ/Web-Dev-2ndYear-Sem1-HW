@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 22: Transitions</title>
+</head>
+<style>
+    div 
+    {
+        width: 100px;
+        height: 100px;
+        background: pink;
+    }
+    #div1
+    {
+        transition: width 2s;
+    }
+    #div1:hover 
+    {
+        width: 500px;
+    }
+    #div2
+    {
+        transition: width 2s, height 2s;
+    }
+    #div2:hover 
+    {
+        width: 150px;
+        height: 150px;
+    }
+</style>
+<body>
+    <div id="div1">1</div>
+    <p> </p>
+    <div id="div2">2</div>
+</body>
+</html>
